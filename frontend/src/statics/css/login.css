@@ -1,0 +1,80 @@
+.btn-wrap li{
+    color: gray;
+    display: inline-block;
+    font-size: 22px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    display: inline-block;
+    margin: 0px 25px 10px 0px;
+    border-bottom: 2px solid transparent;
+    letter-spacing: 15px;
+    cursor: pointer;
+
+}
+.btn-wrap  li.active{
+    color: rgb(255, 255, 255);
+    border-color: rgb(17, 97, 238);
+ }
+ label{
+    color: rgb(170, 170, 170);
+    font-size: 12px;
+    text-align: left
+ }
+ div label input[type='text'],input[type='password'],input[type='email']{
+    width: calc(100% - 140px);
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    padding: 15px 20px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    outline: none
+ }
+ input::placeholder{
+     color: gray
+ }
+
+ input[type="button"]{
+    margin-top: 40px;
+    letter-spacing: 10px;
+    font-size: 20px;
+    color: white;
+    width: calc(100% - 100px);
+    background: rgb(17, 97, 238);
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    padding: 10px 20px;
+    border-radius: 25px;
+ }
+ .slider-wrap{
+    position: relative;
+    text-align: center;
+    width: 310px;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 15px;
+    background: #f7f9fa;
+    color: #45494c;
+    margin: 30px auto 0 auto;
+    border: 1px solid #e4e7eb;
+    color: gray;
+    cursor: pointer;
+ }
+ .slider-block{
+     display: inline-block;
+     width: 40px;
+     height: 40px;
+     border: solid 1px gray;
+     position: absolute;
+     left: 0;
+     cursor: pointer;
+ }
+ .slider-block:hover{
+     color: white;
+     border-color: white;
+    background: rgb(17, 97, 238);
+ }
