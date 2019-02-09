@@ -1,0 +1,211 @@
+.ant-carousel .slick-slide{
+    width: 80%;
+    background: #19191e;
+    overflow: hidden;
+    text-align: center;
+    height: 600px;
+}
+.content-wrap{
+    min-width: 1000px;
+    justify-content: center;
+    align-items: center;
+    overflow-y: hidden;
+    background: #fbfbfb
+}
+.left-top{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height:2px;
+    background: none;
+}
+.right-top{
+    position: absolute;
+    right: 0;
+    top:0;
+    width: 2px;
+    height:0;
+    background: none;
+}
+
+.right-bottom{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: none;
+
+}
+.left-bottom{
+    position: absolute;
+    left: 0;
+    bottom:0;
+    width: 2px;
+    height:0;
+    background: none;
+}
+.content-item span{
+    display: inline-block;
+    transition: all 1.5s;
+}
+.content-item{
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    width:25%;
+    padding:  30px;
+    transition: all .5s ;
+    border: solid 1px #fbfbfb
+}
+@keyframes leftwidth{
+    from{
+        width:0;
+        background:black;
+    }
+    to{
+        width:calc( 100% + 100px);
+    }
+}
+@keyframes heightinc{
+    from{
+        height:0;
+        background:black;
+    }
+    to{
+        height:calc( 100% + 100px);
+    }
+}
+.content-item:hover>.left-top{
+    animation: leftwidth .5s  1 
+}
+.content-item:hover>.right-bottom{
+    animation: leftwidth .5s  1 
+}
+.content-item:hover>.right-top{
+    animation: heightinc .5s  1 
+}
+.content-item:hover>.left-bottom{
+    animation: heightinc .5s  1 
+}
+
+.content-item:hover{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, .5);
+    background: #fbfbfb;
+}
+.content-item img{
+    background: #19191e;
+    width: 100%;
+    height:250px;
+    transform: scale(1);
+    transition: all .5s ;
+}
+.content-item img:hover{
+    transform: scale(1.1);
+}
+.content-item h3{
+    position: relative;
+    font-size: 26px;
+    color: #565a5c;
+    font-family: 'Poppins', sans-serif;
+    padding: 20px 20px 10px 20px;
+    border-bottom: solid 1px gray;
+ }
+ .content-item h4{
+     text-indent: 20px;
+     height: 65px;
+     overflow: hidden;
+ }
+ /* 3D */
+ .d3-outer{
+    padding: 50px  0 150px 100px ;
+    transform: scale(.8);
+}
+ .d3-wrap{
+    position: relative;
+    width: 300px;
+    height: 300px;
+    transform: rotateX(-15deg) rotateY(15deg);
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: all 2s;
+}
+
+ .d3-wrap span{
+     display: inline-block;
+     width:300px;
+     height: 300px;
+     position: absolute;
+     margin: 75px;
+
+ }
+ .top {
+     background: url(./../images/bg.jpg);
+     background-size: 100% 100%;
+    transform: rotateX(90deg) translateZ(150px);
+}
+.right {
+    background: url(./../images/bg.jpg);
+    background-size: 100% 100%;
+
+    transform: rotateY(90deg) translateZ(150px);
+}
+.bottom {
+    background: url(./../images/bg.jpg);
+    background-size: 100% 100%;
+
+    transform: rotateX(-90deg) translateZ(150px);
+}
+.left {
+    background: url(./../images/bg.jpg);
+    background-size: 100% 100%;
+
+    transform: rotateY(-90deg) translateZ(150px);
+}
+.pre {
+    background: url(./../images/bg.jpg);
+    background-size: 100% 100%;
+
+    transform: translateZ(150px);
+}
+.back {
+    background: url(./../images/bg.jpg);
+    background-size: 100% 100%;
+
+    transform: translateZ(-150px);
+}
+@keyframes rotatChange{
+    from{
+        transform: rotateX(45deg) rotateY(0deg);
+    }
+ 
+    to{
+        transform: rotateX(45deg) rotateY(360deg);
+    }
+}
+/* part300 */
+ .right-part3{
+    width:49%;
+    float:right;
+    position: absolute;
+    top: 50px;
+    right:10px;
+    background-color: transparent !important;
+    border: none !important;
+}
+.panel ,.ant-collapse-content{
+    border: none !important;
+    color: aliceblue !important;
+    background-color: transparent !important;
+
+}
+.panel .ant-collapse-header{
+    color: white !important;
+    
+}
+.panel p{
+    color: aliceblue !important;
+    background-color: transparent !important;
+
+}

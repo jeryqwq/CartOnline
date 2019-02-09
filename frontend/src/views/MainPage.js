@@ -1,17 +1,40 @@
-import React ,{useState,useReducer}from 'react';
-import {observer} from 'mobx-react';
-import userState from './../mobx/userState'
+import React from 'react';
+import { Carousel,Icon,Anchor  } from 'antd';
+import Header from './../components/Header'
+// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import './../statics/css/index.css';
+import D3Render from './../containers/D3Render'
+import CartList from './../containers/CartList'
+const { Link } = Anchor;
+
 class MainPage extends React.Component{
-    
-    constructor(props){
-        super(props); 
-    }
     render(){
         return(
-            <div>{}
-            <button onClick={()=>{userState.login({a:123})}}>++</button>
+            <div >
+                <Header id="top" current="item_0"/>
+                <Carousel autoplay>
+                <div><img src={require('./../statics/images/cart1.png')}/></div>
+                <div><img src={require('./../statics/images/cart1.png')}/></div>
+                <div><img src={require('./../statics/images/cart1.png')}/></div>
+                <div><img src={require('./../statics/images/cart1.png')}/></div>
+                </Carousel>
+                <Anchor offsetTop={200} affix style={{width:100,position:"fixed",color:'white',background:'rgba(255,255,255,.8)',borderBottomRightRadius:10,borderTopRightRadius:10}} >
+                    <Link href="#top" title="回到顶部" ></Link>
+                    <Link href="#part1" title="最新" />
+                    <Link href="#part2" title="最热" />
+                    <Link href="#part3" title="店主推荐" />
+                </Anchor>
+                    <h3 id="part1" style={{fontSize:30,textAlign:'center',margin:'20px 0'}}><Icon type="cloud-upload" style={{marginRight:30}} />最近上新</h3>
+                    <h3 style={{textAlign:'center',fontSize:20}}>可爱的管理员又上架了以下车辆</h3>
+                <CartList/>
+                    <h3 id="part2" style={{fontSize:30,textAlign:'center',margin:'20px 0'}}><Icon type="fire" style={{marginRight:30,color:'red'}} />热度榜</h3>
+                    <h3 style={{textAlign:'center',fontSize:20}}>这里有最多用户关注的车辆排名</h3>
+                <CartList/>
+                    <h3 id="part3" style={{fontSize:30,textAlign:'center',margin:'20px 0'}}><Icon type="like" style={{marginRight:30,color:'red'}} />店主推荐</h3>
+                    <h3 style={{textAlign:'center',fontSize:20}}>店主强力推荐款式</h3>
+                    <D3Render/>
             </div>
         )
     }
 }
-export default observer(MainPage)
+export default MainPage

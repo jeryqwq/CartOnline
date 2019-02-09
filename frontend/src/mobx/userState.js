@@ -4,9 +4,9 @@ export default observable({
     user: {isLogin:false},
     login(user){
         this.user={
-            isLogin:true,
             ...user
         };
+        this.user.isLogin=true;
     },
     logout(){
         this.user={isLogin:false};
