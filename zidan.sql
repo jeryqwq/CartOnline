@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50525
 File Encoding         : 65001
 
-Date: 2019-02-09 22:13:10
+Date: 2019-02-10 21:11:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,8 @@ CREATE TABLE `cartinfo` (
   `desc` varchar(500) DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '0可预约，1已被预约，2商品下架',
   `price` int(8) NOT NULL,
-  `imgs` varchar(200) DEFAULT NULL,
+  `img` varchar(200) DEFAULT NULL,
+  `subImgs` varchar(300) DEFAULT NULL,
   `richText` longtext,
   `review` int(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -44,14 +45,22 @@ CREATE TABLE `cartinfo` (
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
-  `cateNo` varchar(100) DEFAULT NULL,
   `cateName` varchar(200) DEFAULT NULL,
+  `cateDesc` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of category
 -- ----------------------------
+INSERT INTO `category` VALUES ('1', '微型车', '分类描述');
+INSERT INTO `category` VALUES ('2', '小型车', null);
+INSERT INTO `category` VALUES ('3', '紧凑型', null);
+INSERT INTO `category` VALUES ('4', '中型车', null);
+INSERT INTO `category` VALUES ('5', '大型车', null);
+INSERT INTO `category` VALUES ('6', 'SUV', null);
+INSERT INTO `category` VALUES ('7', 'MPV', null);
+INSERT INTO `category` VALUES ('8', '跑车', null);
 
 -- ----------------------------
 -- Table structure for `order`
