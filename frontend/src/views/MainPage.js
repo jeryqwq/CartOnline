@@ -1,5 +1,5 @@
 import React from 'react';
-import { Carousel,Icon,Anchor  } from 'antd';
+import { Carousel,Icon,Anchor,BackTop  } from 'antd';
 import Header from './../components/Header'
 // import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './../statics/css/index.css';
@@ -11,15 +11,14 @@ class MainPage extends React.Component{
     render(){
         return(
             <div >
-                <Header id="top" current="item_0"/>
+                <Header current="item_0"/>
                 <Carousel autoplay>
                 <div><img src={require('./../statics/images/cart1.png')}/></div>
                 <div><img src={require('./../statics/images/cart1.png')}/></div>
                 <div><img src={require('./../statics/images/cart1.png')}/></div>
                 <div><img src={require('./../statics/images/cart1.png')}/></div>
                 </Carousel>
-                <Anchor offsetTop={200} affix style={{width:100,position:"fixed",color:'white',background:'rgba(255,255,255,.8)',borderBottomRightRadius:10,borderTopRightRadius:10}} >
-                    <Link href="#top" title="回到顶部" ></Link>
+                <Anchor offsetTop={50} affix style={{width:100,position:"fixed",color:'white',background:'rgba(255,255,255,.8)',borderBottomRightRadius:10,borderTopRightRadius:10}} >
                     <Link href="#part1" title="最新" />
                     <Link href="#part2" title="最热" />
                     <Link href="#part3" title="店主推荐" />
@@ -33,6 +32,9 @@ class MainPage extends React.Component{
                     <h3 id="part3" style={{fontSize:30,textAlign:'center',margin:'20px 0'}}><Icon type="like" style={{marginRight:30,color:'red'}} />店主推荐</h3>
                     <h3 style={{textAlign:'center',fontSize:20}}>店主强力推荐款式</h3>
                     <D3Render/>
+                    <BackTop>
+                    <div className="ant-back-top-inner">UP</div>
+                    </BackTop>
             </div>
         )
     }

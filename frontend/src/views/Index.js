@@ -3,7 +3,7 @@ import "./../statics/css/login.css";
 import { message } from 'antd';
 import axios from 'axios';
 import userState from './../mobx/userState'
-import { Redirect } from 'react-router-dom';
+import { Redirect ,Link} from 'react-router-dom';
 
 let mouseMoveFlag=false;
 export default function() {
@@ -137,7 +137,8 @@ export default function() {
                   </div>
                   <br/>
                   <input onClick={()=>{login()}} type="button" value="登陆"   disabled={!isSlidered?'disabled':undefined} style={{background:!isSlidered?'gray':undefined}}/>
-                  <hr color='gray' style={{width:'calc( 100% - 140px)',margin:'52px auto'}}/>
+                  <hr color='gray' style={{width:'calc( 100% - 140px)',margin:'52px auto 0 auto'}}/>
+                  <Link to="/MainPage" style={{color:'rgb(17, 97, 238)',float:'left',marginLeft:70}}>游客登录</Link>
                 </div>:<div style={{textAlign:'center',transition:'all .8s'}}>
                   <label>UserName<br/>
                   <input  onBlur={()=>{setImg1Left(0)}}  onChange={(event)=>{MoveCarLeft(event);setName(event.target.value)}}  type="text" placeholder="请输入用户名"/>
@@ -156,7 +157,6 @@ export default function() {
                   </label>
                   <br/>
                   <label>Email<br/>
-                  
                   <input onBlur={()=>{setImg1Left(0)}}  onChange={(event)=>{MoveCarLeft(event);setEmail(event.target.value)}}   type="email" placeholder="请输入邮箱"/>
                   </label>
                   <br/>

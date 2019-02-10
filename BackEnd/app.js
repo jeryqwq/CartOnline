@@ -6,10 +6,15 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const session = require('koa-session');
+const koaBody = require("koa-body")
 
 
 const index = require('./routes/index')
 const users = require('./routes/users')
+const category=require('./routes/category')
+const fileupload=require('./routes/fileupload')
+const product=require('./routes/product')
+// session配置
 app.keys = ['zidan'];
 const CONFIG = {
    key: 'koa:sess',   //cookie key (default is koa:sess)
@@ -20,6 +25,15 @@ const CONFIG = {
    rolling: false,  //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
    renew: false,  //(boolean) renew session when session is nearly expired,
 };
+// 文件上传配置
+app.use(koaBody({
+  multipart:true,
+  formidable:{
+  maxFileSize:2000*1024*1024
+  }
+})
+)
+
 app.use(session(CONFIG, app));
 // error handler
 onerror(app)
@@ -31,7 +45,6 @@ app.use(bodyparser({
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
-
 app.use(views(__dirname + '/views', {
   extension: 'pug'
 }))
@@ -47,6 +60,9 @@ app.use(async (ctx, next) => {
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+app.use(category.routes(), category.allowedMethods())
+app.use(fileupload.routes(), fileupload.allowedMethods())
+app.use(product.routes(), product.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

@@ -9,7 +9,7 @@
     min-width: 1000px;
     justify-content: center;
     align-items: center;
-    overflow-y: hidden;
+    overflow: hidden;
     background: #fbfbfb
 }
 .left-top{
@@ -209,3 +209,14 @@
     background-color: transparent !important;
 
 }
+.ant-back-top-inner {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    background-color: #1088e9;
+    color: #fff;
+    text-align: center;
+    float: left;
+    font-size: 20px;
+  }

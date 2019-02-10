@@ -13,7 +13,11 @@ export default function(){
                 <Option value="lucy">车辆名称</Option>
                 <Option value="lucy">车辆信息</Option>
             </Select>
-            <Input style={{width:200,marginLeft:50}} placeholder="请输入关键词" />
+            <Input.Search enterButton={true}
+            onSearch={()=>{
+                
+            }}
+            style={{width:200,marginLeft:50}} placeholder="请输入关键词" />
            </div>
         </div>
     )

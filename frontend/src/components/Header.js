@@ -39,7 +39,7 @@ class Header extends React.Component{
     constructor(props){
         super(props);
             this.state = {
-                current: this.props.current,
+                current: this.props.current?this.props.current:'item_0',
                 visible: false
               }
     }
@@ -74,7 +74,7 @@ class Header extends React.Component{
                     visible:true
                   })
               }}>
-              <Icon type="info-circle"  />我的信息
+              <Icon type="info-circle"/>我的信息
               </Menu.Item>
               <Menu.Item onClick={()=>{this.logout()}}>
               <Icon type="logout" />注销登录
@@ -110,6 +110,11 @@ class Header extends React.Component{
             <Menu.Item  >
             <Icon type="schedule" /><Link style={{display:'inline'}} to="/Status">我的预约</Link>
             </Menu.Item>
+            {
+              userState.user.isAdmin===1?<Menu.Item >
+             <Icon type="lock" /><Link style={{display:'inline'}} to="/BackEnd">后台管理</Link>
+              </Menu.Item>:undefined
+            }
             </Menu>
             <Drawer
           width={350}
