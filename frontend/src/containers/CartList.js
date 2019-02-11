@@ -14,7 +14,7 @@ export default function(props){
                 <span className="right-top"></span>
                 <span className="right-bottom"></span>
                 <img src={item.img}/>
-                <h3>{item.title} <span style={{float:"right"}}>￥{item.price/10000}<span style={{fontSize:15}}>万元</span><span style={{fontSize:15}}>{item.price}</span></span></h3>
+                <h3>{item.title} <span style={{float:"right"}}>￥{item.price/10000}<span style={{fontSize:15}}>万元</span></span></h3>
                 <h4>{item.desc}</h4>
                 <Button type="primary">
             查看详情<Icon type="right" /> 

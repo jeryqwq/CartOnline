@@ -25,8 +25,10 @@ router.get('/getProduct',async(ctx)=>{
    order by ${params.orderBy} 
   limit ${params.pageSize*(params.pageNum-1)},${params.pageSize}`
   const res=await query(sql);
+  const total=await query("select count(*) from cartinfo")
   if(res.length>0){
-    ctx.body=ServerSuccess(res)
+    ctx.body=ServerSuccess(res);
+    ctx.body.total=total[0]["count(*)"];
   }else{
     ctx.body=ServerFail("查询结果为空")
   }

@@ -5,28 +5,26 @@ import {Card,Avatar,Icon} from 'antd'
 
 const { Meta } = Card;
 
-export default class AllCart extends React.Component{
-    state={
-
-    }
-    render(){
+export default function(props){
+ 
+ 
         return(
-            <div style={{width:'85%',margin:'20px auto'}}>
+            <div style={{width:'85%',margin:'20px auto',textAlign:'center'}}>
           {
-              [1,2,3,4,5,6,7,8].map((item,index)=>(
+              props.cartList.map((item,index)=>(
                 <Card key={index}
                 hoverable
-                style={{ width: 240 ,display:'inline-block',margin:10}}
-                cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                style={{ width: 240 ,height:300,display:'inline-block',margin:10}}
+                cover={<img alt={item.pingpai} src={item.img} style={{width:'100%',height:200}} />}
               >
                 <Meta
-                  title="Europe Street beat"
-                  description="www.instagram.com"
+                  title={item.title}
+                  description={item.desc}
                 />
               </Card>
               ))
           }
             </div>
         )
-    }
+    
 }

@@ -16,6 +16,7 @@ export default class CartInfo extends React.Component{
         where:'1=1',
         value: 'createTime',
         cateId:0,
+        total:0
     }
     componentDidMount(){
         this.getCart();
@@ -26,12 +27,13 @@ export default class CartInfo extends React.Component{
                 pageSize:this.state.pageSize,
                 pageNum:this.state.pageNum,
                 where:this.state.where,
-                orderBy:this.state.value
+                orderBy:this.state.value +" desc"
             }
         }).then((res)=>{
             if(res.data.state===0){
                 this.setState({
-                    cartList:res.data.data
+                    cartList:res.data.data,
+                    total:res.data.total
                 })
             }else{
                 message.info("该分类下还没数据")
@@ -69,7 +71,15 @@ export default class CartInfo extends React.Component{
             </div>
             <CartList cartList={this.state.cartList}/>
             <Pagination style={{textAlign:'center',margin:"50px 0 30px 0"}} 
-            defaultCurrent={1} total={50} />
+            defaultCurrent={1} total={this.state.total}
+            onChange={(val)=>{
+                this.setState({
+                    pageNum:val
+                },()=>{
+                    this.getCart()
+                })
+            }}
+            />
         </div>
     )
    }
