@@ -30,7 +30,7 @@ class MainPage extends React.Component{
                 <CartList cartList={[1,2,3,45,6]}/>
                     <h3 id="part2" style={{fontSize:30,textAlign:'center',margin:'20px 0'}}><Icon type="fire" style={{marginRight:30,color:'red'}} />热度榜</h3>
                     <h3 style={{textAlign:'center',fontSize:20}}>这里有最多用户关注的车辆排名</h3>
-                <CartList2 CartList={[1,2,3,45,6]}/>
+                <CartList2 cartList={[1,2,3,45,6]}/>
                     <h3 id="part3" style={{fontSize:30,textAlign:'center',margin:'20px 0'}}><Icon type="like" style={{marginRight:30,color:'red'}} />店主推荐</h3>
                     <h3 style={{textAlign:'center',fontSize:20,margin:'20px 0'}}>店主强力推荐款式</h3>
                     <D3Render/>

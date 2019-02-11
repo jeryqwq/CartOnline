@@ -8,7 +8,6 @@ const RadioGroup = Radio.Group;
 
 
 export default class CartInfo extends React.Component{
-
     state={
         pageSize:8,
         pageNum:1,
