@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './../components/Header';
-import {Select,Input } from 'antd'
+import {Select,Input ,Pagination} from 'antd'
+import CartList from './../containers/CartList2'
 export default function(){
     const Option = Select.Option;
     return (
@@ -19,6 +20,9 @@ export default function(){
             }}
             style={{width:200,marginLeft:50}} placeholder="请输入关键词" />
            </div>
+           <CartList/>
+           <Pagination style={{textAlign:'center',margin:"50px 0 30px 0"}} 
+            defaultCurrent={1} total={50} />
         </div>
     )
 }

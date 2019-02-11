@@ -1,18 +1,48 @@
 import React from 'react';
 import Header from './../components/Header'
 import CartList from './../containers/CartList'
-import {Pagination,Radio ,Select} from 'antd'
-
-const Option = Select.Option;
+import {Pagination,Radio ,message} from 'antd'
+import Category from './../components/Category'
+import axios from 'axios';
 const RadioGroup = Radio.Group;
+
+
 export default class CartInfo extends React.Component{
+
     state={
-        value: 1,
+        pageSize:8,
+        pageNum:1,
+        cartList:[],
+        where:'1=1',
+        value: 'createTime',
+        cateId:0,
+    }
+    componentDidMount(){
+        this.getCart();
+    }
+    getCart(){
+        axios.get('/getProduct',{
+            params:{
+                pageSize:this.state.pageSize,
+                pageNum:this.state.pageNum,
+                where:this.state.where,
+                orderBy:this.state.value
+            }
+        }).then((res)=>{
+            if(res.data.state===0){
+                this.setState({
+                    cartList:res.data.data
+                })
+            }else{
+                message.info("该分类下还没数据")
+            }
+        })
     }
     onChange = (e) => {
-        console.log('radio checked', e.target.value);
         this.setState({
           value: e.target.value,
+        },()=>{
+            this.getCart()
         });
       }
    render(){
@@ -21,21 +51,23 @@ export default class CartInfo extends React.Component{
         <div>
             <Header current="item_1"/>
             <div style={{height:50,margin:"25px 0  0 50%"}}>
-            分类查看:&nbsp;&nbsp;&nbsp;<Select labelInValue defaultValue={{ key: 'global' }} style={{ width: 120 }} >
-                <Option value="global">分类</Option>
-                <Option value="jack">分类1</Option>
-                <Option value="lucy">分类2</Option>
-                <Option value="lucy">分类3</Option>
-            </Select>
+            <span>选择分类:</span><Category categoryId={(val)=>{
+                this.setState({
+                    cateId:val,
+                    where:'cateId='+val
+                },()=>{
+                    this.getCart();
+                })
+            }}/>
             <RadioGroup style={{float:"right"}}
             onChange={this.onChange} value={this.state.value}>
             排序方式:&nbsp;&nbsp;
-                <Radio value={1}>上架时间</Radio>
-                <Radio value={2}>浏览量</Radio>
-                <Radio value={3}>价格</Radio>
+                <Radio value={'createTime'}>上架时间</Radio>
+                <Radio value={'review'}>浏览量</Radio>
+                <Radio value={'price'}>价格</Radio>
             </RadioGroup>
             </div>
-            <CartList/>
+            <CartList cartList={this.state.cartList}/>
             <Pagination style={{textAlign:'center',margin:"50px 0 30px 0"}} 
             defaultCurrent={1} total={50} />
         </div>

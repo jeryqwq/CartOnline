@@ -106,10 +106,10 @@
 }
 .content-item h3{
     position: relative;
-    font-size: 26px;
+    font-size: 18px;
     color: #565a5c;
     font-family: 'Poppins', sans-serif;
-    padding: 20px 20px 10px 20px;
+    padding: 20px 0 10px 0;
     border-bottom: solid 1px gray;
  }
  .content-item h4{

@@ -47,7 +47,7 @@ class Header extends React.Component{
         if(!userState.user.isLogin){
         axios.get("/autoLogin").then((res)=>{
             if(res.data.data.state===0){
-                userState.login(res.data.data.data[0])
+                userState.login(res.data.data.data)
             }
         })
         }

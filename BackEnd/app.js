@@ -7,13 +7,15 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const session = require('koa-session');
 const koaBody = require("koa-body")
-
+const static = require('koa-static')
+const path = require('path')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
 const category=require('./routes/category')
 const fileupload=require('./routes/fileupload')
 const product=require('./routes/product')
+const admin=require('./routes/admin')
 // session配置
 app.keys = ['zidan'];
 const CONFIG = {
@@ -33,6 +35,9 @@ app.use(koaBody({
   }
 })
 )
+app.use(static(
+  path.join( __dirname,  './upload')
+))
 
 app.use(session(CONFIG, app));
 // error handler
@@ -63,7 +68,7 @@ app.use(users.routes(), users.allowedMethods())
 app.use(category.routes(), category.allowedMethods())
 app.use(fileupload.routes(), fileupload.allowedMethods())
 app.use(product.routes(), product.allowedMethods())
-
+app.use(admin.routes(),admin.allowedMethods())
 // error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)

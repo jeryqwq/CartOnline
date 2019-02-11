@@ -1,8 +1,7 @@
 const router = require('koa-router')()
 const fs = require('fs');
 const path=require('path')
-const {query}=require('./../mysql/connect.js');
-const {ServerSuccess,ServerFail}=require('./../tools/sqlTools')
+
 
 
 router.post('/fileupload', async (ctx) => {
@@ -15,10 +14,6 @@ router.post('/fileupload', async (ctx) => {
         const upStream = fs.createWriteStream(filePath);
         // 可读流通过管道写入可写流
         reader.pipe(upStream);
-        return ctx.body = randomStr+ext;
-
+        return ctx.body = randomStr+"."+ext;
 })
-
-
-
 module.exports = router

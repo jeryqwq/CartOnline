@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route  } from "react-router-dom";
 import Index from './views/Index'
 import MainPage from './views/MainPage'
 import Search from './views/Search'
@@ -7,7 +7,7 @@ import Status from './views/Status'
 import CartInfo from './views/CartInfo'
 import BackEnd from './views/BackEnd'
 const AppRouter = () => (
-    <Router>
+       <Router>
        <span>
        {/* <Link to='/'>首页</Link>
        <Link to='/MainPage'>首页</Link> */}
@@ -19,7 +19,6 @@ const AppRouter = () => (
           <Route path="/BackEnd" component={BackEnd}/>
 
        </span>
-    </Router>
-  );
+    </Router>  );
   
   export default AppRouter;

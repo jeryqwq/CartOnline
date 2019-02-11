@@ -32,16 +32,9 @@ export default class FileUpLoad extends React.Component{
                   });
               }}
               onChange={({ fileList })=>{
-                  
-                  for (const key in fileList) {
-                      if (fileList.hasOwnProperty(key)) {
-                          console.log(fileList[key].response)
-                        this.setState({
-                            subImgs:this.state.subImgs+","+fileList[key].response
-                        })
-                      }
-                  }
+             
                 this.setState({ fileList });
+                this.props.setImg(fileList);
                 // fileList[0].response  //图片地址
               }}
             >

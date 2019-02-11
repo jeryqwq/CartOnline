@@ -109,14 +109,13 @@ export default function() {
         <div onMouseMove={(event)=>{MoveCar(event)}} style={{height:'50%',overflow:'hidden'}}>
           <img style={{position:'relative',left:img1Left+'px',transition:'all .8s'}}  src={require('./../statics/images/bg.png')}/>
         </div>
-
         {
         isLogin?<Redirect push to="/MainPage"/>:undefined
         }
         <div style={{height:'50%',overflow:'hidden'}}>
           <img style={{position:'relative',left:img1Left+'px',transition:'all .8s'}}  src={require('./../statics/images/bg2.png')}/>
         </div>
-        <div style={{position:'fixed',top:50,left:50,width:520,height:550,backgroundColor:'rgba(255,255,255,0.1)',boxShadow:'grey 0px 0px 16px'}}>
+        <div style={{position:'fixed',top:50,left:50,width:'30%',height:'60%',backgroundColor:'rgba(255,255,255,0.1)',boxShadow:'grey 0px 0px 16px'}}>
             <img src={require('./../statics/images/bg.jpg')} style={{width:'100%',height:'100%',position:"absolute"}}/>
             <div  style={{width:'100%',height:'100%',position:"absolute",background:'rgba(40,57,101,.9)'}}>
                 <ul style={{margin:'50px 70px 0 70px'}} className="btn-wrap">

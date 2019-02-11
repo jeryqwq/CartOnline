@@ -1,7 +1,10 @@
-import {Layout, Menu, Breadcrumb, Icon,} from 'antd';
+import {Layout, Menu, Icon,} from 'antd';
 import React from 'react';
 import AddCart from './../components/AddCart'
 import HeaderTitle from './../components/Header'
+import AllCart from '../components/AllCart'
+import Calendar from './../components/Calendar'
+import User from './../components/AllUser'
 const {  Content, Footer, Sider} = Layout;
 const SubMenu = Menu.SubMenu;
  export default class SiderDemo extends React.Component {
@@ -37,8 +40,7 @@ render() {
                 title={<span><Icon type="database"  /><span>车辆信息管理</span></span>}
               >
                 <Menu.Item key="1"><Icon type="plus" /><span>新增车辆</span></Menu.Item>
-                <Menu.Item key="2"><Icon type="hdd" /><span>所有车辆</span></Menu.Item>
-                <Menu.Item key="3"><Icon type="export" /><span>上下架车辆</span></Menu.Item>
+                <Menu.Item key="2"><Icon type="hdd" /><span>车辆操作</span></Menu.Item>
               </SubMenu>
               <Menu.Item key="4">
               <Icon type="schedule" />
@@ -61,10 +63,9 @@ render() {
             <Content style={{ margin: '0 16px' }}>
                 <div style={{background:'white',minHeight:'90vh'}}>
                 {this.state.key==="1"?<AddCart/>:undefined}
-                {this.state.key==="2"?2:undefined}
-                {this.state.key==="3"?3:undefined}
-                {this.state.key==="4"?4:undefined}
-                {this.state.key==="5"?5:undefined}
+                {this.state.key==="2"?<AllCart/>:undefined}
+                {this.state.key==="4"?<Calendar/>:undefined}
+                {this.state.key==="5"?<User/>:undefined}
                 {this.state.key==="6"?6:undefined}
                 {this.state.key==="7"?7:undefined}
                 </div>
