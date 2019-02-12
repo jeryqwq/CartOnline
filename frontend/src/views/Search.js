@@ -60,7 +60,8 @@ export default class Search extends React.Component{
                 <Input.Search onChange={(event)=>{
                     console.log(event.target.value)
                     this.setState({
-                        value:event.target.value
+                        value:event.target.value,
+                        pageNum:1
                     })
                 }} enterButton={true}
                 onSearch={()=>{

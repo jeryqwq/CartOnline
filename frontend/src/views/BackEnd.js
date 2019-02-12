@@ -10,7 +10,8 @@ const SubMenu = Menu.SubMenu;
  export default class SiderDemo extends React.Component {
     state = {
       collapsed: false,
-      key:'4'
+      key:'4',
+      cartId:undefined
     };
     onCollapse = (collapsed) => {
       console.log(collapsed);
@@ -62,17 +63,22 @@ render() {
           <Layout>
             <Content style={{ margin: '0 16px' }}>
                 <div style={{background:'white',minHeight:'90vh'}}>
-                {this.state.key==="1"?<AddCart/>:undefined}
-                {this.state.key==="2"?<AllCart/>:undefined}
+                {this.state.key==="1"?<AddCart cartId={this.state.cartId} />:undefined}
+                {this.state.key==="2"?<AllCart setCartId={(val)=>{
+                  this.setState({
+                    cartId:val,
+                    key:"1"
+                  })
+                }}/>:undefined}
                 {this.state.key==="4"?<Calendar/>:undefined}
                 {this.state.key==="5"?<User/>:undefined}
                 {this.state.key==="6"?6:undefined}
                 {this.state.key==="7"?7:undefined}
                 </div>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>
+            {/* <Footer style={{ textAlign: 'center' }}>
               LookCart看车网 ©2018 Created by LineWell UED
-            </Footer>
+            </Footer> */}
           </Layout>
         </Layout>
         </div>

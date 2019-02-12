@@ -20,8 +20,10 @@ export default class Category extends React.Component{
         })
     }
     render(){
-        return   <Select  onChange={(val)=>{this.props.categoryId(val.key)}}
-        labelInValue style={{ width: 120,margin:'10px ' }} >
+        return   <Select placeholder="请选择一个分类" onChange={(val)=>{this.props.setCategoryId(val)}}
+        style={{ width: 150,margin:'10px ' }}
+        defaultValue={this.props.cateId}
+         >
             {
                 this.state.categoryList.length>0?this.state.categoryList.map((item,index)=>(
                     <Option key={item.id} value={item.id}>{item.cateName}</Option>

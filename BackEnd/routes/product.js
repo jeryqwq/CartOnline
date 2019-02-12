@@ -20,12 +20,15 @@ router.get('/addProduct', async (ctx, next) => {
 //参数:where:查询条件 pageSize:页面大小  pageNum:第几页 orderBy排序方式
 router.get('/getProduct',async(ctx)=>{
   const params =ctx.query;
-  const sql=`select id,pingpai,title,'desc',status,price,img,review from cartinfo
-   where ${params.where} 
-   order by ${params.orderBy} 
+  let sql;
+  sql=`select id,pingpai,title,`+"`desc`"+`,status,price,img,review from cartinfo
+  where ${params.where} ${ctx.session.user===undefined||ctx.session.user.isAdmin===0?'and status = 1':''}
+  order by ${params.orderBy} 
   limit ${params.pageSize*(params.pageNum-1)},${params.pageSize}`
   const res=await query(sql);
-  const total=await query("select count(*) from cartinfo")
+  const total=await query(`select count(*) from cartinfo where ${params.where} 
+  ${ctx.session.user===undefined||ctx.session.user.isAdmin===0?'and status = 1':''}
+  order by ${params.orderBy} `)
   if(res.length>0){
     ctx.body=ServerSuccess(res);
     ctx.body.total=total[0]["count(*)"];
@@ -35,6 +38,16 @@ router.get('/getProduct',async(ctx)=>{
 })
 
 
+router.get("/getProductById",async(ctx)=>{
+  const params=ctx.query;
+  const sql=`select *  from cartinfo where id=${params.id}`;
+  const res=await query(sql)
+  if(res!==undefined){
+    ctx.body=ServerSuccess(res[0])
+  }else{
+    ctx.body=ServerFail("查询结果为空")
+  }
+})
 
 
 module.exports = router

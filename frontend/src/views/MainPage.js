@@ -3,6 +3,7 @@ import { Carousel,Icon,Anchor,BackTop  } from 'antd';
 import Header from './../components/Header'
 // import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './../statics/css/index.css';
+import axios from 'axios'
 import D3Render from './../containers/D3Render'
 import CartList from './../containers/CartList'
 import CartList2 from './../containers/CartList2'
@@ -10,6 +11,40 @@ import CartList2 from './../containers/CartList2'
 const { Link } = Anchor;
 
 class MainPage extends React.Component{
+    state={
+        cartListNew:[],
+        cartListHot:[],
+
+    }
+    componentDidMount(){
+        const that=this;
+       this.getCartInfo('createTime  ',function(res){
+            if(res.data.state===0){
+                that.setState({
+                    cartListNew:res.data.data
+                })
+            }
+       });
+       this.getCartInfo('review  ',function(res){
+        if(res.data.state===0){
+            that.setState({
+                cartListHot:res.data.data
+            })
+        }
+   });
+    }
+    getCartInfo(orderBy,fn){
+        axios.get("/getProduct",{
+            params:{
+                pageSize:8,
+                pageNum:1,
+                where:'1=1',
+                orderBy:orderBy,
+            }
+        }).then((res)=>{
+           fn(res);
+        })
+    }
     render(){
         return(
             <div >
@@ -27,10 +62,10 @@ class MainPage extends React.Component{
                 </Anchor>
                     <h3 id="part1" style={{fontSize:30,textAlign:'center',margin:'20px 0'}}><Icon type="cloud-upload" style={{marginRight:30}} />最近上新</h3>
                     <h3 style={{textAlign:'center',fontSize:20}}>可爱的管理员又上架了以下车辆</h3>
-                <CartList cartList={[1,2,3,45,6]}/>
+                <CartList cartList={this.state.cartListNew}/>
                     <h3 id="part2" style={{fontSize:30,textAlign:'center',margin:'20px 0'}}><Icon type="fire" style={{marginRight:30,color:'red'}} />热度榜</h3>
                     <h3 style={{textAlign:'center',fontSize:20}}>这里有最多用户关注的车辆排名</h3>
-                <CartList2 cartList={[1,2,3,45,6]}/>
+                <CartList2 cartList={this.state.cartListHot}/>
                     <h3 id="part3" style={{fontSize:30,textAlign:'center',margin:'20px 0'}}><Icon type="like" style={{marginRight:30,color:'red'}} />店主推荐</h3>
                     <h3 style={{textAlign:'center',fontSize:20,margin:'20px 0'}}>店主强力推荐款式</h3>
                     <D3Render/>

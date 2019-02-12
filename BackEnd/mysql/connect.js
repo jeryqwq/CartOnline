@@ -2,10 +2,10 @@ var mysql      = require('mysql');
 var pool  = mysql.createPool({
     host      : 'localhost',
     user      : 'root', 
-    password  : 'root',
-    port      : 3333,//家用笔记本
-    // port      : 3306,//单位
-    // password  : '123456',
+    // password  : 'root',
+    // port      : 3333,//家用笔记本
+    port      : 3306,//单位
+    password  : '123456',
     database  : 'zidan',
 });
 var query=function(sql){
@@ -23,7 +23,7 @@ var query=function(sql){
                 });
             }
         });
-    })
+    })  
 };
 
 // query("SELECT * FROM user").then((result) => {

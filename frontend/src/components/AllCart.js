@@ -37,6 +37,19 @@ export default class AllCart extends React.Component{
             }
         })
     }
+    tabStatus(status,id){
+        axios.get('/tabStatus',{
+            params:{
+                status,
+                id
+            }
+        }).then((res)=>{
+            if(res.data.state===0){
+                this.getCart();
+                message.info("操作成功!")
+            }
+        })
+    }
     render(){
         return(
             <div style={{paddingTop:40}}>
@@ -49,20 +62,33 @@ export default class AllCart extends React.Component{
                 <span className="right-top"></span>
                 <span className="right-bottom"></span>
                 <img src={item.img}/>
-                <h3>{item.title} <span style={{float:"right"}}>￥{Math.round(item.price/10000)}<span style={{fontSize:15}}>万元</span><span style={{fontSize:15}}>{item.price}</span></span></h3>
+                <h3>{item.title} <span style={{float:"right"}}>{Math.round(item.price/10000)}<span style={{fontSize:15}}>万元</span><span style={{fontSize:12}}>{item.price}</span></span></h3>
                 <h4>{item.desc}</h4>
-                <Button type="primary">
+                <Button onClick={()=>{
+                    this.props.setCartId(item.id)
+                }}
+                 type="primary">
             编辑<Icon type="edit" /> 
                 </Button>
-                <Button type="primary" style={{float:"right"}}>
-            下架<Icon type="fall" /> 
-                </Button>
+               {
+                   item.status===1? <Button onClick={()=>{
+                       this.tabStatus(0,item.id);
+                   }}
+                   type="primary" style={{float:"right"}}>
+                   下架<Icon type="fall"  style={{color:'red'}}/> 
+                       </Button>:<Button onClick={()=>{
+                        this.tabStatus(1,item.id);
+                    }}
+                    type="primary" style={{float:"right"}}>
+                   上架<Icon type="rise" /> 
+                       </Button>
+               }
                 {/* <span style={{float:"right",marginRight:20}}><Icon type="eye" style={{marginRight:10}} />{item.review}</span> */}
             </div>
              ))
          }
         </div>
-                  <Pagination style={{textAlign:'center',margin:"40px 0 30px 0"}} 
+                  <Pagination style={{textAlign:'center',padding:"40px 0 30px 0"}} 
                   onChange={(val)=>{
                    this.setState({
                        pageNum:val

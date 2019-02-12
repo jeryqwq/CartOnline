@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ReactQuill from 'react-quill';
-import {Row,Col,Input, InputNumber,Radio,Button} from 'antd'
+import {Row,Col,Input, InputNumber,Radio,Button, message} from 'antd'
 import axios from 'axios';
 import 'react-quill/dist/quill.snow.css';
 import Btn from './../containers/Btn';
@@ -10,9 +10,10 @@ const RadioGroup = Radio.Group;
 export default class extends Component {
     constructor(props) {
         super(props)
-        this.state = { text: '',
+        this.state = { 
+        text: '',
         title:'',
-        categoryId:'',
+        categoryId:1,
         desc:'',
         status:1,
         price:0,
@@ -22,50 +23,99 @@ export default class extends Component {
         fileList:[]
     } // You can also pass a Quill Delta here
 }
-      modules = {
-        toolbar: [
-          [{ 'header': [1, 2, false] }],
-          ['bold', 'italic', 'underline','strike', 'blockquote'],
-          [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-          ['link', 'image'],
-          ['clean']
-        ],
-      }
-    
-      formats = [
-        'header',
-        'bold', 'italic', 'underline', 'strike', 'blockquote',
-        'list', 'bullet', 'indent',
-        'link', 'image'
-      ]
-      insertCart(){
-          let subImg="";
-          //to 组装Img信息，从fileUpload回调的文件列表中
-        for (const key in this.state.fileList) {
-            if (this.state.fileList.hasOwnProperty(key)) {
-                console.log(this.state.fileList[key].response)
-                if(this.state.fileList[key].response!==undefined){
-                      subImg=subImg+this.state.fileList[key].response+","
-                }
-            }
-        }
-        axios.get("/addProduct",{
+    componentDidMount(){
+        this.getEditContent();
+        //todo upload Infos
+    }
+    updateInfo(){
+        axios.get("/updateProduct",{
             params:{
-                cateId:this.state.categoryId,
-                pingpai:this.state.pingpai,
-                title:this.state.title,
-                desc:this.state.desc,
-                status:this.state.status,
-                price:this.state.price,
-                img:this.state.fileList[0].response,
-                subImgs:subImg,
-                richText:this.state.text
+
             }
         }).then((res)=>{
-          console.log(res);
+            console.log(res)
         })
-        console.log(subImg)
-      }
+    }
+    getEditContent(){
+        if(this.props.cartId!==undefined){
+            axios.get('/getProductById',{
+                params:{
+                    id:this.props.cartId
+                }
+            }).then((res)=>{
+                const data=res.data.data;
+                if(res.data.state===0){
+                    this.setState({
+                        text: data.richText,
+                        title:data.title,
+                        categoryId:data.cateId,
+                        desc:data.desc,
+                        status:data.status,
+                        price:data.price ,
+                        pingpai:data.pingpai,
+                        img:data.img,
+                        subImg:data.subImgs,
+                    })
+                }
+            })
+        }
+    }
+    modules = {
+    toolbar: [
+        [{ 'header': [1, 2, false] }],
+        ['bold', 'italic', 'underline','strike', 'blockquote'],
+        [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+        ['link', 'image'],
+        ['clean']
+    ],
+    }
+    
+    formats = [
+    'header',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image'
+    ]
+    insertCart(){
+        let subImg="";
+        //to 组装Img信息，从fileUpload回调的文件列表中
+    for (const key in this.state.fileList) {
+        if (this.state.fileList.hasOwnProperty(key)) {
+            if(this.state.fileList[key].response!==undefined){
+                    subImg=subImg+this.state.fileList[key].response+","
+            }
+        }
+    }
+    axios.get("/addProduct",{
+        params:{
+            cateId:this.state.categoryId,
+            pingpai:this.state.pingpai,
+            title:this.state.title,
+            desc:this.state.desc,
+            status:this.state.status,
+            price:this.state.price,
+            img:this.state.fileList[0].response,
+            subImgs:subImg,
+            richText:this.state.text
+        }
+    }).then((res)=>{
+        if(res.data.state===0){
+            message.info("上传成功!")
+            this.setState({
+            text: '',
+            title:'',
+            categoryId:1,
+            desc:'',
+            status:1,
+            price:0,
+            pingpai:'',
+            img:'',
+            subImg:'',
+            fileList:[]
+            })
+        }
+    })
+    }
       render() {
         return (
          <div style={{margin:'10px',paddingTop:1,textAlign:'center'}}>
@@ -83,7 +133,10 @@ export default class extends Component {
                 <Col span={6}>
                     <label style={{color:'#333333'}}>请选择分类<br/>
                     <Category 
-                     categoryId={(id)=>{this.setState({categoryId:id})}}/>
+                     setCategoryId={(id)=>{
+                         this.setState({categoryId:id})}}
+                    cateId={this.state.categoryId}
+                    />
                     </label>
                 </Col>
                 <Col span={12}>
@@ -107,9 +160,13 @@ export default class extends Component {
                     </label>
                 </Col>
                 <Col span={12}>
+                
                     <FileUpLoad setImg={(imgs)=>{this.setState({
                         fileList:imgs
-                    })}} imgCount={7} title="图片信息(最多可上传六张)"/>
+                    })}} imgCount={7} title={this.props.cartId===undefined?"最多上传六张图片":"图片文件如需更改请重新上传"}/>:
+                   
+                
+                    
                 </Col>
             </Row>
     
@@ -123,7 +180,8 @@ export default class extends Component {
             <Button onClick={()=>{
                 this.insertCart();
             }} 
-             style={{float:"right",margin:"30px"}} type="primary" shape="round" icon="upload" size='large'>上传</Button>
+             style={{float:"right",margin:"30px"}} type="primary" shape="round" icon="upload" size='large'>
+             {this.props.cartId===undefined?'新增':'保存'}</Button>
 
          </div>
         )

@@ -85,16 +85,16 @@ export default function() {
     }
     function sliderMove(event){
       if(mouseMoveFlag){
-        setSilderLeft(event.screenX-53);
+        setSilderLeft(event.screenX-100);
         setSliderBgColor('gray');
-        if(event.screenX-53>=268){
-          setSilderLeft(270);
+        if(event.screenX-100>=(308-45)){
+          setSilderLeft((310-45));
           setInnerTip('验证通过');
           setIsSlidered(true);
           setSliderBgColor('white');
           message.info('验证成功！请登录');
           mouseMoveFlag=false;
-        }else if(event.screenX-53<0){
+        }else if(event.screenX-100<0){
           setSilderLeft(0);
           mouseMoveFlag=false;
         }
@@ -131,8 +131,8 @@ export default function() {
                   <label>PassWord<br/>
                   <input  onBlur={()=>{setImg1Left(0)}}  onChange={(event)=>{MoveCarLeft(event);setPwd(event.target.value)}}   type="password" placeholder="请输入密码"/>
                   </label>
-                  <div   className="slider-wrap" style={{background:sliderBgColor}} >
-                  <div onMouseMove={(event)=>{sliderMove(event)}} onMouseLeave={()=>{mouseMoveFlag=false;}} onMouseDown={()=>{mouseMoveFlag=true;}} onMouseUp={()=>{mouseMoveFlag=false;}} className='slider-block' style={{left:silderLeft+'px'}}>→</div>
+                  <div  onMouseMove={(event)=>{sliderMove(event)}} className="slider-wrap" style={{zIndex:1}} >
+                  <div  onMouseDown={()=>{mouseMoveFlag=true;}} onMouseUp={()=>{mouseMoveFlag=false;}} className='slider-block' style={{left:silderLeft+'px',zIndex:5}}>→</div>
                   {innerTip}
                   </div>
                   <br/>

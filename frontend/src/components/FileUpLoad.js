@@ -48,7 +48,7 @@ export default class FileUpLoad extends React.Component{
                     previewVisible:false
                 })
             }}>
-              <img alt="example" style={{ width: '100%' }} src={this.state.previewImage} />
+              <img alt="图片预览" style={{ width: '100%' }} src={this.state.previewImage} />
             </Modal>
           </div>
         )
