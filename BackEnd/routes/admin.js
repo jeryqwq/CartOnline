@@ -76,10 +76,12 @@ router.get('/updateProduct',async(ctx)=>{
         if(ctx.session.user.isAdmin===1){
             const params =ctx.query;
             let sql;
-            sql=`update cartinfo set pingpai='${params.pingpai}' title='${params.title}' desc='
+            sql=`update cartinfo set pingpai='${params.pingpai}' title='${params.title}'`+"`"+`desc`+"`"+`='
             ${params.desc}' status=${params.status} price=${params.price} img='
-            ${params.img}' subImgs= '${params.subImgs}' richText='${params.richText}
-            '`
+            ${params.img}' subImgs= '${params.subImgs}' richText='${params.richText}'
+            cateId=${params.cateId}
+            where id=${params.id}
+            `
             const res = await query(sql);
             if(res!==undefined){
                 ctx.body=ServerSuccess(res);

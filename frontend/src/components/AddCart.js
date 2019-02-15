@@ -11,6 +11,7 @@ export default class extends Component {
     constructor(props) {
         super(props)
         this.state = { 
+        id:0,
         text: '',
         title:'',
         categoryId:1,
@@ -28,10 +29,21 @@ export default class extends Component {
         //todo upload Infos
     }
     updateInfo(){
+        const params={
+            id:this.state.id,
+            cateId:this.state.categoryId,
+            pingpai:this.state.pingpai,
+            title:this.state.title,
+            desc:this.state.desc,
+            status:this.state.status,
+            price:this.state.price,
+            img:this.state.subImg.split(",")[0],
+            subImgs:this.state.subImg,
+            richText:this.state.text
+        }
+        console.log(params)
         axios.get("/updateProduct",{
-            params:{
-
-            }
+            params
         }).then((res)=>{
             console.log(res)
         })
@@ -46,6 +58,7 @@ export default class extends Component {
                 const data=res.data.data;
                 if(res.data.state===0){
                     this.setState({
+                        id:data.id,
                         text: data.richText,
                         title:data.title,
                         categoryId:data.cateId,
@@ -178,10 +191,10 @@ export default class extends Component {
                 this.setState({ text: value })
             }} />
             <Button onClick={()=>{
-                this.insertCart();
+                this.props.cartId===undefined? this.insertCart():this.updateInfo();
             }} 
              style={{float:"right",margin:"30px"}} type="primary" shape="round" icon="upload" size='large'>
-             {this.props.cartId===undefined?'新增':'保存'}</Button>
+             {this.props.cartId===undefined?'新增':'更新'}</Button>
 
          </div>
         )
