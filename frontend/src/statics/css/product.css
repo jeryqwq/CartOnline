@@ -1,0 +1,46 @@
+.img-wrap{
+    width: 1000px;
+    margin: 0 auto;
+    height: 600px;
+    position: relative;
+}
+.part-left{
+    width: 400px;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+.bigImg-wrap{
+    position: relative;
+    width: 400px;
+    height: 400px;
+}
+.bigImg-wrap .modal{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    background: rgba(0, 0, 0, .4);
+
+}
+.bigImg-wrap img{
+    width: 100%;
+    height: 100%;
+}
+.subImg{
+    width: 100%;
+    height: 100px;
+    white-space: nowrap;
+    overflow:hidden;
+}
+
+.subImg img.active{
+    border:solid 2px red;
+}
+.to-review{
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    left:500px;
+    overflow: hidden;
+}

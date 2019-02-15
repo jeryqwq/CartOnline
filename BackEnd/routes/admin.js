@@ -82,16 +82,15 @@ router.get('/updateProduct',async(ctx)=>{
             '`
             const res = await query(sql);
             if(res!==undefined){
-                ctx.body=ServerSuccess(res)
+                ctx.body=ServerSuccess(res);
             }else{
-                ctx.body=ServerFail("查询数据为空")
+                ctx.body=ServerFail("查询数据为空");
             }
         }else{
-            ctx.body=ServerFail("您没有权限操作")
+            ctx.body=ServerFail("您没有权限操作");
            }
     }else{
-        ctx.body=ServerFail("用户未登录")
+        ctx.body=ServerFail("用户未登录");
     }
-   
   })
   module.exports = router

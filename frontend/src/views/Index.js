@@ -6,7 +6,6 @@ import userState from './../mobx/userState'
 import { Redirect ,Link} from 'react-router-dom';
 
 let mouseMoveFlag=false;
-
 export default function() {
     const [img1Left,setImg1Left]=useState(0);
     const [curActive,setCurActive]=useState(true);
@@ -84,10 +83,11 @@ export default function() {
       setCurActive(val);
     }
     function sliderMove(event){
+      const mgLeft=document.querySelector("div.login-wrap").offsetLeft+document.querySelector("div.slider-wrap").offsetLeft
       if(mouseMoveFlag){
-        setSilderLeft(event.screenX-100);
+        setSilderLeft(event.screenX-mgLeft);
         setSliderBgColor('gray');
-        if(event.screenX-100>=(308-45)){
+        if(event.screenX-mgLeft>=(308-45)){
           setSilderLeft((310-45));
           setInnerTip('验证通过');
           setIsSlidered(true);
@@ -116,9 +116,9 @@ export default function() {
         <div style={{height:'50%',overflow:'hidden'}}>
           <img style={{position:'relative',left:img1Left+'px',transition:'all .8s'}}  src={require('./../statics/images/bg2.png')}/>
         </div>
-        <div style={{position:'fixed',top:50,left:50,width:'30%',height:'60%',backgroundColor:'rgba(255,255,255,0.1)',boxShadow:'grey 0px 0px 16px',minHeight:560}}>
+        <div className="login-wrap" style={{position:'fixed',top:50,left:50,width:'30%',height:'60%',backgroundColor:'rgba(255,255,255,0.1)',boxShadow:'grey 0px 0px 16px',minHeight:560}}>
             <img src={require('./../statics/images/bg.jpg')} style={{width:'100%',height:'100%',position:"absolute",minHeight:560}}/>
-            <div  style={{width:'100%',height:'100%',position:"absolute",background:'rgba(40,57,101,.9)',minHeight:560}}>
+            <div   style={{width:'100%',height:'100%',position:"absolute",background:'rgba(40,57,101,.9)',minHeight:560}}>
                 <ul style={{margin:'50px 70px 0 70px'}} className="btn-wrap">
                   <li className={curActive?'active':''} onClick={()=>{tabBar(true)}}>登录</li>
                   <li className={(!curActive)?'active':'' } onClick={()=>{tabBar(false)}}>注册</li>

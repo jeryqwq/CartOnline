@@ -6,6 +6,7 @@ import Search from './views/Search'
 import Status from './views/Status'
 import CartInfo from './views/CartInfo'
 import BackEnd from './views/BackEnd'
+import Product from './views/Product'
 const AppRouter = () => (
        <Router>
        <span>
@@ -17,7 +18,7 @@ const AppRouter = () => (
           <Route path="/Search" component={Search}/>
           <Route path="/Status" component={Status}/>
           <Route path="/BackEnd" component={BackEnd}/>
-
+          <Route path="/Product" component={Product}/>
        </span>
     </Router>  );
   
