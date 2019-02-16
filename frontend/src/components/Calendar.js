@@ -1,60 +1,39 @@
 import React from 'react';
-import { Calendar,Badge } from 'antd';
-export default function(props){
-    function getListData(value) {
-        let listData;
-        switch (value.date()) {
-          case 8:
-            listData = [
-              { type: 'warning', content: '当天有预约' },
-              { type: 'success', content: '距离现在还剩X 天' },
-            ]; break;
-          case 15:
-            listData = [
-              { type: 'warning', content: '当天有预约' },
-              { type: 'success', content: '点击查看车辆信息' },
-              { type: 'error', content: '距离现在还剩X 天' }
-            ]; break;
-          default:
-        }
-        return listData || [];
-      }
-      
-      function dateCellRender(value) {
-        const listData = getListData(value);
-        return (
-          <ul className="events">
-            {
-              listData.map(item => (
-                <li key={item.content}>
-                  <Badge status={item.type} text={item.content} />
-                </li>
-              ))
-            }
-          </ul>
-        );
-      }
-      
-      function getMonthData(value) {
-        if (value.month() === 8) {
-          return 1394;
-        }
-      }
-      
-      function monthCellRender(value) {
-        const num = getMonthData(value);
-        return num ? (
-          <div className="notes-month">
-            <section>{num}</section>
-            <span>Backlog number</span>
-          </div>
-        ) : null;
-      }
-      
-    return (
+import { Icon,Calendar,Badge } from 'antd';
+import moment from 'moment'
+import {Link} from 'react-router-dom'
+export default class Calendar1 extends React.Component{
+   constructor(props){
+      super(props)
+   }
+   
+     
+     
+    render(){
+      return (
         
-      <div>
-            <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender}/>
-      </div>
-    )
+        <div>
+              <Calendar dateCellRender={(val)=>{
+                let list;
+                  const dateList=this.props.dateList
+                  for (const key in dateList) {
+                    if (dateList.hasOwnProperty(key)) {
+                      const element = dateList[key];
+                     if(moment(element.Time).date()===val.date()){
+                       if(moment(element.Time).month()<val.month()){
+                        list=<Link to={"/Product/"+element.cartId}><Icon type="frown" /><Badge status="error" text={"该预约已过期"} /></Link>
+                       }else if(moment(element.Time).month()==val.month()){                
+                            list=<Link to={"/Product/"+element.cartId}><Icon type="bell" /><Badge status="success" text="今日有预约" /></Link>
+                        }else{
+                          list=<Link to={"/Product/"+element.cartId}><Icon type="solution" /><Badge status="warning" text={val.month()+"月有预约"} /></Link>
+                        }
+                      return list;
+                      
+                     }
+                    }
+                  }
+              }}/>
+        </div>
+      )
+    }
 }

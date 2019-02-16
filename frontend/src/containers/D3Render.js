@@ -1,9 +1,10 @@
 import React,{useState} from 'react';
-import {Collapse } from 'antd'
+import {Collapse } from 'antd';
+import {Link} from 'react-router-dom'
 const Panel = Collapse.Panel;
 let timerFlag=true;
 let timeout=undefined;
-export default function(){
+export default function(props){
     const [rotateX,setRotateX]=useState(-15);
     const [rotateY,setRotateY]=useState(15);
     const [rotateZ,setRotateZ]=useState('0')
@@ -12,12 +13,13 @@ export default function(){
         <div style={{background:'#19191e',position:'relative'}}>
            <div className="d3-outer">
            <div className="d3-wrap" style={{transform: "rotateX("+rotateX+"deg) rotateY("+rotateY+"deg) rotateZ("+rotateZ+"deg)",animation: animation}} >
-                <span className="top" />
-                <span className="right"  />
-                <span className="bottom"  />
-                <span className="left"  />
-                <span className="pre"  />
-                <span className="back"  />
+                {
+                    props.cartList.map((item,index)=>
+                    <Link key={index} to={"/Product/"+item.id}><span className={"item"+index} style={{backgroundImage: "url("+item.img+")"}} />
+                    </Link>
+                    )
+                  
+                }
             </div>
            </div>
             <Collapse bordered={false} onChange={(key)=>{
@@ -63,24 +65,13 @@ export default function(){
                    },5000)
               
             }}  className="right-part3" accordion>
-                <Panel className="panel"  header="经典车型RTY4234-1" key="1">
-                <p>This is pane经典车型RTY4234经典车型RTY4234经典车型RTY4234经典车型RTY4234经典车型RTY4234经典车型RTY4234经典车型RTY4234ead</p>
+                {
+                    props.cartList.map((item,index)=>
+                    <Panel key={index} className="panel"  header={item.title} >
+                <p>{item.desc}</p>
                 </Panel>
-                <Panel className="panel"  header="经典车型RTY4234-2" key="2">
-                <p>This is panel head</p>
-                </Panel>
-                <Panel className="panel"  header="经典车型RTY4234-3" key="3">
-                <p>This is panel head</p>
-                </Panel>
-                <Panel className="panel"  header="经典车型RTY4234-1" key="4">
-                <p>This is panel head</p>
-                </Panel>
-                <Panel className="panel"  header="经典车型RTY4234-2" key="5">
-                <p>This is panel head</p>
-                </Panel>
-                <Panel className="panel"  header="经典车型RTY4234-3" key="6">
-                <p>This is panel head</p>
-                </Panel>
+                )}
+               
             </Collapse>
         </div>
     )

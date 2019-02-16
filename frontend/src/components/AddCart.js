@@ -45,7 +45,23 @@ export default class extends Component {
         axios.get("/updateProduct",{
             params
         }).then((res)=>{
-            console.log(res)
+            if(res.data.state===0){
+                message.info("修改成功！！！");
+                this.setState({
+                    text: '',
+                    title:'',
+                    categoryId:1,
+                    desc:'',
+                    status:1,
+                    price:0,
+                    pingpai:'',
+                    img:'',
+                    subImg:'',
+                    fileList:[]
+                    })
+            }else{
+                message.error("修改异常！！！")
+            }
         })
     }
     getEditContent(){

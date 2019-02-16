@@ -70,16 +70,16 @@ router.get("/delUser",async function(ctx){
         ctx.body=ServerFail("用户未登录")
     }
 })
-//this API is not passing test
 router.get('/updateProduct',async(ctx)=>{
     if( ctx.session.user!=undefined){
         if(ctx.session.user.isAdmin===1){
             const params =ctx.query;
             let sql;
-            sql=`update cartinfo set pingpai='${params.pingpai}' title='${params.title}'`+"`"+`desc`+"`"+`='
-            ${params.desc}' status=${params.status} price=${params.price} img='
-            ${params.img}' subImgs= '${params.subImgs}' richText='${params.richText}'
-            cateId=${params.cateId}
+            sql=`update cartinfo set pingpai='${params.pingpai}',
+             title='${params.title}',`+"`"+"desc"+"`"+`='${params.desc}',
+              status=${params.status}, price=${params.price}, img='${params.img}'
+               ,subImgs= '${params.subImgs}' ,richText='${params.richText}',
+               cateId=${params.cateId}
             where id=${params.id}
             `
             const res = await query(sql);
@@ -93,6 +93,21 @@ router.get('/updateProduct',async(ctx)=>{
            }
     }else{
         ctx.body=ServerFail("用户未登录");
+    }
+  })
+  router.get("/allStatus",async function(ctx){
+    if( ctx.session.user!=undefined){
+        if(ctx.session.user.isAdmin!==1){
+            ctx.body=ServerFail("您没有权限!");
+            return;
+        }
+    }
+    const sql=`select *,sum(count) as totle from `+"`status`"+`where Time>NOW()  GROUP BY Time `
+    const res = await query(sql);
+    if(res!==undefined){
+        ctx.body=ServerSuccess(res)
+    }else{
+        ctx.body=ServerFail("数据异常")
     }
   })
   module.exports = router

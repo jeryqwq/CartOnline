@@ -52,7 +52,7 @@ export default class CartInfo extends React.Component{
         <div>
             <Header current="item_1"/>
             <div style={{height:50,margin:"25px 0  0 50%"}}>
-            <span>选择分类:</span><Category categoryId={(val)=>{
+            <span>选择分类:</span><Category setCategoryId={(val)=>{
                 this.setState({
                     cateId:val,
                     where:'cateId='+val

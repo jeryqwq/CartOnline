@@ -84,7 +84,7 @@
     animation: leftwidth .5s  1 
 }
 .content-item:hover>.right-top{
-    animation: heightinc .5s  1 
+    animation: heightinc .5s  1 ;
 }
 .content-item:hover>.left-bottom{
     animation: heightinc .5s  1 
@@ -140,37 +140,32 @@
      margin: 75px;
 
  }
- .top {
-     background: url(./../images/bg.jpg);
+ .item0 {
+    
      background-size: 100% 100%;
     transform: rotateX(90deg) translateZ(150px);
 }
-.right {
-    background: url(./../images/bg.jpg);
+.item1 {
     background-size: 100% 100%;
 
     transform: rotateY(90deg) translateZ(150px);
 }
-.bottom {
-    background: url(./../images/bg.jpg);
+.item2 {
     background-size: 100% 100%;
 
     transform: rotateX(-90deg) translateZ(150px);
 }
-.left {
-    background: url(./../images/bg.jpg);
+.item3 {
     background-size: 100% 100%;
 
     transform: rotateY(-90deg) translateZ(150px);
 }
-.pre {
-    background: url(./../images/bg.jpg);
+.item4 {
     background-size: 100% 100%;
 
     transform: translateZ(150px);
 }
-.back {
-    background: url(./../images/bg.jpg);
+.item5 {
     background-size: 100% 100%;
 
     transform: translateZ(-150px);

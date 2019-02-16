@@ -18,7 +18,7 @@ const AppRouter = () => (
           <Route path="/Search" component={Search}/>
           <Route path="/Status" component={Status}/>
           <Route path="/BackEnd" component={BackEnd}/>
-          <Route path="/Product" component={Product}/>
+          <Route path="/Product/:id" component={Product}/>
        </span>
     </Router>  );
   

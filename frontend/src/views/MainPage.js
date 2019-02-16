@@ -14,29 +14,36 @@ class MainPage extends React.Component{
     state={
         cartListNew:[],
         cartListHot:[],
-
+        cartListD3:[]
     }
     componentDidMount(){
         const that=this;
-       this.getCartInfo('createTime  ',function(res){
+       this.getCartInfo('createTime  desc',function(res){
             if(res.data.state===0){
                 that.setState({
                     cartListNew:res.data.data
                 })
             }
-       });
-       this.getCartInfo('review  ',function(res){
+       },8);
+       this.getCartInfo('review desc ',function(res){
         if(res.data.state===0){
             that.setState({
                 cartListHot:res.data.data
             })
         }
-   });
+   },8);
+   this.getCartInfo('price  desc',function(res){
+        if(res.data.state===0){
+            that.setState({
+                cartListD3:res.data.data
+            })
+        }
+    },6);
     }
-    getCartInfo(orderBy,fn){
+    getCartInfo(orderBy,fn,size){
         axios.get("/getProduct",{
             params:{
-                pageSize:8,
+                pageSize:size,
                 pageNum:1,
                 where:'1=1',
                 orderBy:orderBy,
@@ -68,8 +75,8 @@ class MainPage extends React.Component{
                 <CartList2 cartList={this.state.cartListHot}/>
                     <h3 id="part3" style={{fontSize:30,textAlign:'center',margin:'20px 0'}}><Icon type="like" style={{marginRight:30,color:'red'}} />店主推荐</h3>
                     <h3 style={{textAlign:'center',fontSize:20,margin:'20px 0'}}>店主强力推荐款式</h3>
-                    <D3Render/>
-                    <BackTop>
+                    <D3Render cartList={this.state.cartListD3}/>
+                    <BackTop >
                     <div className="ant-back-top-inner">UP</div>
                     </BackTop>
             </div>

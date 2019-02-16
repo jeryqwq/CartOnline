@@ -42,13 +42,10 @@ export default class AllUsers extends React.Component{
         title: '用户名',
         dataIndex: 'name',
         key: 'name',
-        sorter: (a, b) => a.name.length - b.name.length,
-        render: text => <a href="javascript:;">{text}</a>,
       }, {
         title: '电话',
         dataIndex: 'phone',
         key: 'id',
-        sorter: (a, b) => a.age - b.age,
       }, {
         title: '邮箱',
         dataIndex: 'email',

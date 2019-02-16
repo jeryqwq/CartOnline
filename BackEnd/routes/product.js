@@ -6,10 +6,7 @@ var moment = require('moment');
 router.get('/addProduct', async (ctx, next) => {
   const params = ctx.query;
   const sql=`insert into cartinfo values(0,
-    ${params.cateId},'${params.pingpai}','${params.title}','
-    ${params.desc}',${params.status},${params.price},'
-    ${params.img}','${params.subImgs}','${params.richText}
-    ',0,'${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}')`
+${params.cateId},'${params.pingpai}','${params.title}','${params.desc}',${params.status},${params.price},'${params.img}','${params.subImgs}','${params.richText}',0,'${moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}')`
   const res=await query(sql);
   if(res){
     ctx.body=ServerSuccess(res)
@@ -48,6 +45,15 @@ router.get("/getProductById",async(ctx)=>{
     ctx.body=ServerFail("查询结果为空")
   }
 })
-
+router.get("/addReview",async(ctx)=>{
+  const params=ctx.query;
+  const sql=`update cartinfo set review=review+1  where id=${params.id}`;
+  const res=await query(sql)
+  if(res!==undefined){
+    ctx.body=ServerSuccess(res[0])
+  }else{
+    ctx.body=ServerFail("执行失败")
+  }
+})
 
 module.exports = router

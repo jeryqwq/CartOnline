@@ -1,20 +1,34 @@
-import {Layout, Menu, Icon,} from 'antd';
+import {Layout, Menu, Icon,Calendar,Badge} from 'antd';
 import React from 'react';
+import {Link} from 'react-router-dom'
 import AddCart from './../components/AddCart'
 import HeaderTitle from './../components/Header'
 import AllCart from '../components/AllCart'
-import Calendar from './../components/Calendar'
 import User from './../components/AllUser'
+import moment from 'moment'
+import AddCate from './../components/AddCate';
+import CartType from './../components/CartType'
+import Axios from 'axios';
 const {  Content, Footer, Sider} = Layout;
 const SubMenu = Menu.SubMenu;
  export default class SiderDemo extends React.Component {
     state = {
       collapsed: false,
       key:'4',
-      cartId:undefined
+      cartId:undefined,
+      dateList:[]
     };
+    componentDidMount(){
+      this.getStatus()
+    }
+    getStatus(){
+      Axios.get('/allStatus').then((res)=>{
+        if(res.data.state===0){
+          this.setState({dateList:res.data.data})
+        }
+      })
+    }
     onCollapse = (collapsed) => {
-      console.log(collapsed);
       this.setState({ collapsed });
     }
   
@@ -70,10 +84,33 @@ render() {
                     key:"1"
                   })
                 }}/>:undefined}
-                {this.state.key==="4"?<Calendar/>:undefined}
+                {this.state.key==="4"?  <Calendar dateCellRender={(val)=>{
+                let list;
+                  const dateList=this.state.dateList
+                  for (const key in dateList) {
+                    if (dateList.hasOwnProperty(key)) {
+                      const element = dateList[key];
+                      if(moment(element.Time).year()===val.year()){
+                     if(moment(element.Time).date()===val.date()){
+                       if(moment(element.Time).month()>val.month()){
+                        list=undefined;
+                       }else if(moment(element.Time).month()<val.month()){
+                          list=<Link to={"/Product/"+element.cartId}><Icon type="solution" /><Badge status="warning" text={val.month()+"月有预约"} /></Link>
+                        }
+                        else if(moment(element.Time).month()==val.month()){                
+                          list=<Link to={"/Product/"+element.cartId}><Icon type="bell" /><Badge status="success" text={"今日有预约:预计人数"+element.totle} /></Link>
+                      }
+                     }
+                    }else{
+                      list=undefined;
+                    }
+                    return list;
+                    }
+                  }
+              }}/>:undefined}
                 {this.state.key==="5"?<User/>:undefined}
-                {this.state.key==="6"?6:undefined}
-                {this.state.key==="7"?7:undefined}
+                {this.state.key==="6"?<CartType/>:undefined}
+                {this.state.key==="7"?<AddCate/>:undefined}
                 </div>
             </Content>
             {/* <Footer style={{ textAlign: 'center' }}>
