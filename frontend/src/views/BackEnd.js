@@ -85,27 +85,22 @@ render() {
                   })
                 }}/>:undefined}
                 {this.state.key==="4"?  <Calendar dateCellRender={(val)=>{
-                let list;
-                  const dateList=this.state.dateList
-                  for (const key in dateList) {
-                    if (dateList.hasOwnProperty(key)) {
-                      const element = dateList[key];
-                      if(moment(element.Time).year()===val.year()){
+                  let list=undefined;
+                  if(this.state.dateList.length!==0){
+                    for (let i=0;i<this.state.dateList.length;i++) {
+                      let element = this.state.dateList[i];
+                      console.log(element)
                      if(moment(element.Time).date()===val.date()){
-                       if(moment(element.Time).month()>val.month()){
-                        list=undefined;
-                       }else if(moment(element.Time).month()<val.month()){
-                          list=<Link to={"/Product/"+element.cartId}><Icon type="solution" /><Badge status="warning" text={val.month()+"月有预约"} /></Link>
+
+                     if(moment(element.Time).month()<val.month()){
+                          list=<Link to={"/Product/"+element.cartId}><Icon type="solution" /><Badge status="warning" text={val.month()+1+"月有预约"} /></Link>
                         }
                         else if(moment(element.Time).month()==val.month()){                
                           list=<Link to={"/Product/"+element.cartId}><Icon type="bell" /><Badge status="success" text={"今日有预约:预计人数"+element.totle} /></Link>
                       }
                      }
-                    }else{
-                      list=undefined;
                     }
                     return list;
-                    }
                   }
               }}/>:undefined}
                 {this.state.key==="5"?<User/>:undefined}
