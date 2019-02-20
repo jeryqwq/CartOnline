@@ -48,6 +48,11 @@ render() {
                this.setState({
                    key:e.key
                })
+               if(e.key==1){
+                this.setState({
+                  cartId:undefined
+                })
+               }
             }}
             >
             <SubMenu
@@ -89,7 +94,6 @@ render() {
                   if(this.state.dateList.length!==0){
                     for (let i=0;i<this.state.dateList.length;i++) {
                       let element = this.state.dateList[i];
-                      console.log(element)
                      if(moment(element.Time).date()===val.date()){
 
                      if(moment(element.Time).month()<val.month()){
